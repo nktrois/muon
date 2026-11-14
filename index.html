@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="description" content="Muon : voir le champ de son capteur sur une carte du ciel, selon le télescope, la caméra, la rotation et la mosaïque.">
+  <title>Muon</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css?v=0.2.1">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="./">Muon</a>
+    <span class="tagline">Simulateur de cadrage astro</span>
+    <a class="source" href="https://github.com/nktrois/muon" target="_blank" rel="noopener noreferrer">Code source</a>
+  </header>
+
+  <div class="layout">
+    <aside class="panel" aria-label="Réglages">
+
+      <section class="step">
+        <h2><span class="n">1</span> Cible</h2>
+        <label for="targetPreset">Objet</label>
+        <select id="targetPreset"></select>
+
+        <label for="targetQuery">Ou chercher un nom</label>
+        <div class="row">
+          <input id="targetQuery" placeholder="M31, NGC 7000…" autocomplete="off">
+          <button id="searchTarget" type="button">Chercher</button>
+        </div>
+
+        <details>
+          <summary>Coordonnées précises</summary>
+          <div class="row two">
+            <div><label for="ra">AD (°)</label><input id="ra" type="number" min="0" max="360" step="any"></div>
+            <div><label for="dec">DEC (°)</label><input id="dec" type="number" min="-90" max="90" step="any"></div>
+          </div>
+          <button id="gotoCoords" type="button" class="secondary">Aller à ces coordonnées</button>
+        </details>
+      </section>
+
+      <section class="step">
+        <h2><span class="n">2</span> Télescope</h2>
+        <label for="telescope">Modèle</label>
+        <select id="telescope"></select>
+        <div class="row two">
+          <div><label for="focal">Focale (mm)</label><input id="focal" type="number" min="1" step="any"></div>
+          <div>
+            <label for="factor">Réducteur / Barlow</label>
+            <select id="factor">
+              <option value="0.5">0,5×</option><option value="0.63">0,63×</option><option value="0.7">0,7×</option><option value="0.8">0,8×</option>
+              <option value="1" selected>Aucun</option>
+              <option value="1.5">1,5×</option><option value="2">2×</option><option value="3">3×</option>
+              <option value="custom">Autre…</option>
+            </select>
+          </div>
+        </div>
+        <div class="hidden" id="customFactorRow">
+          <label for="customFactor">Facteur</label>
+          <input id="customFactor" type="number" min="0.01" max="20" step="0.01" value="1">
+        </div>
+      </section>
+
+      <section class="step">
+        <h2><span class="n">3</span> Caméra</h2>
+        <label for="camera">Modèle</label>
+        <select id="camera"></select>
+
+        <label for="rotation">Rotation <output id="rotationValue">0°</output></label>
+        <input id="rotation" type="range" min="-180" max="180" value="0" step="1">
+
+        <details>
+          <summary>Détails du capteur</summary>
+          <div class="row two">
+            <div><label for="pixelsX">Largeur (px)</label><input id="pixelsX" type="number" min="1" max="100000" step="1"></div>
+            <div><label for="pixelsY">Hauteur (px)</label><input id="pixelsY" type="number" min="1" max="100000" step="1"></div>
+          </div>
+          <label for="pixelUm">Taille d'un pixel (µm)</label>
+          <input id="pixelUm" type="number" min="0.01" step="0.01">
+        </details>
+      </section>
+
+      <section class="step">
+        <h2><span class="n">4</span> Mosaïque</h2>
+        <div class="row two">
+          <div>
+            <label for="mosaic">Grille</label>
+            <select id="mosaic">
+              <option value="1">Aucune</option><option value="2">2 × 2</option><option value="3">3 × 3</option><option value="4">4 × 4</option>
+            </select>
+          </div>
+          <div><label for="overlap">Recouvrement (%)</label><input id="overlap" type="number" min="0" max="60" step="1"></div>
+        </div>
+      </section>
+
+      <button id="reset" type="button" class="link">Réinitialiser</button>
+    </aside>
+
+    <main class="main">
+      <div class="main-head">
+        <div>
+          <h1 id="objectTitle">M45 · Pléiades</h1>
+          <div class="muted" id="positionLabel"></div>
+        </div>
+        <div class="actions">
+          <select id="survey" aria-label="Fond du ciel">
+            <option value="dss">Visible (DSS2)</option>
+            <option value="2mass">Infrarouge (2MASS)</option>
+          </select>
+          <button id="centerOnView" type="button" class="secondary" title="Placer le cadre au centre de la vue">Cadre ici</button>
+          <button id="fitFrame" type="button" class="secondary">Recentrer</button>
+        </div>
+      </div>
+
+      <div class="atlas">
+        <div id="aladin-lite-div" aria-label="Carte du ciel"></div>
+        <div class="placeholder" id="atlasPlaceholder">
+          <strong>Chargement de la carte du ciel…</strong>
+          <small>Les calculs fonctionnent même sans Internet.</small>
+        </div>
+        <div class="atlas-status"><span id="atlasStatus">Chargement</span> · <span id="legendLabel">Champ de la caméra</span></div>
+      </div>
+
+      <div id="error" class="error" role="alert" hidden></div>
+
+      <section class="results" aria-label="Résultats">
+        <div><span class="label">Champ</span><span class="value" id="statFov"></span><span class="muted" id="statMosaic"></span></div>
+        <div><span class="label">Échantillonnage</span><span class="value" id="statScale"></span><span class="muted">au centre</span></div>
+        <div><span class="label">Focale effective</span><span class="value" id="statFocal"></span><span class="muted" id="statFactor"></span></div>
+        <div><span class="label">Capteur</span><span class="value" id="statSensor"></span><span class="muted" id="statPixels"></span></div>
+      </section>
+
+      <footer class="foot">
+        <span class="muted">Champ géométrique théorique. Carte : <a href="https://aladin.cds.unistra.fr/AladinLite/" target="_blank" rel="noopener noreferrer">Aladin Lite</a> (CDS).</span>
+        <span class="actions">
+          <button id="copyLink" type="button" class="secondary">Copier le lien</button>
+          <button id="downloadJson" type="button" class="secondary">Exporter JSON</button>
+        </span>
+      </footer>
+    </main>
+  </div>
+
+  <script src="optics.js?v=0.2.1"></script>
+  <script src="catalog.js?v=0.2.1"></script>
+  <script src="app.js?v=0.2.1"></script>
+</body>
+</html>

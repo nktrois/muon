@@ -1,0 +1,19 @@
+name: Muon — tests
+on:
+  push:
+  pull_request:
+jobs:
+  unit-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check JavaScript syntax
+        run: |
+          node --check app.js
+          node --check catalog.js
+          node --check optics.js
+      - name: Run optics and astrometry tests
+        run: node --test tests/optics.test.js
