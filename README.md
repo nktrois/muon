@@ -4,7 +4,7 @@
 
 **[▶ Open the app](https://nktrois.github.io/muon-ciel-profond/)**, nothing to install.
 
-**Muon Ciel profond** (deep-sky counterpart to Muon, named after the particle that rains down from cosmic rays) shows the **field actually covered by your camera sensor** on an interactive sky atlas. No install, no server, no account: it runs in any recent browser on Windows, macOS and Linux. The interface is in French.
+**Muon Ciel profond** (named after the particle that rains down from cosmic rays) shows the **field actually covered by your camera sensor** on an interactive sky atlas. No install, no server, no account: it runs in any recent browser on Windows, macOS and Linux. The interface is in French.
 
 ![Muon showing a 2×2 mosaic on M31](docs/screenshot.jpg)
 
