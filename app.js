@@ -280,7 +280,7 @@ function downloadConfig() {
   try {
     const {optics,spans}=validateSettings();
     const panels=computeMosaic({raDeg:state.ra,decDeg:state.dec,rotationDeg:state.rotation,mosaic:state.mosaic,overlapPercent:state.overlap,optics});
-    const output={app:'Muon',version:'0.2',coordinateFrame:'ICRS (J2000 approximation for presets)',
+    const output={app:'Muon Ciel profond',version:'0.2',coordinateFrame:'ICRS (J2000 approximation for presets)',
       note:'Geometric ideal-field model; not a plate-solving/WCS solution or an exposure simulation.',
       target:{name:state.title,raDeg:state.ra,decDeg:state.dec},
       telescope:{preset:state.telescopeId,nativeFocalMm:state.focal,opticalFactor:state.factor},
@@ -288,7 +288,7 @@ function downloadConfig() {
       mosaic:{countPerAxis:state.mosaic,overlapPercent:state.overlap},field:{...optics,...spans},
       panels:panels.map(({row,col,center,footprint})=>({row:row+1,column:col+1,centerRaDeg:center[0],centerDecDeg:center[1],skyFootprint:footprint}))};
     const blob=new Blob([JSON.stringify(output,null,2)],{type:'application/json'});
-    const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='muon-cadrage.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),3000);
+    const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='muon-ciel-profond.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),3000);
   }catch(e){report(e.message,true);}
 }
 

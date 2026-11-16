@@ -1,5 +1,5 @@
 {
-  "name": "muon",
+  "name": "muon-ciel-profond",
   "version": "0.2.0",
   "private": true,
   "scripts": { "test": "node --test tests/optics.test.js" }

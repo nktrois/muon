@@ -1,10 +1,10 @@
-# Muon — Simulateur de cadrage astronomique
+# Muon Ciel profond — Simulateur de cadrage astronomique
 
 *[English](README.md) · Français*
 
-**[▶ Ouvrir l'appli](https://nktrois.github.io/muon/)**, rien à installer.
+**[▶ Ouvrir l'appli](https://nktrois.github.io/muon-ciel-profond/)**, rien à installer.
 
-**Muon** (du nom de la particule qui nous tombe du ciel avec les rayons cosmiques) affiche le **champ réellement couvert par ton capteur** sur une carte du ciel interactive. Sans installation, sans serveur, sans compte : il marche dans n'importe quel navigateur récent, sous Windows, macOS et Linux.
+**Muon Ciel profond** (du nom de la particule qui nous tombe du ciel avec les rayons cosmiques) affiche le **champ réellement couvert par ton capteur** sur une carte du ciel interactive. Sans installation, sans serveur, sans compte : il marche dans n'importe quel navigateur récent, sous Windows, macOS et Linux.
 
 ![Muon affichant une mosaïque 2×2 sur M31](docs/screenshot.jpg)
 
@@ -23,7 +23,7 @@
 
 ## Lancer
 
-**En ligne :** [https://nktrois.github.io/muon/](https://nktrois.github.io/muon/), sur ordinateur comme sur téléphone.
+**En ligne :** [https://nktrois.github.io/muon-ciel-profond/](https://nktrois.github.io/muon-ciel-profond/), sur ordinateur comme sur téléphone.
 
 **Copie hors ligne :** télécharger le dépôt (*Code → Download ZIP*), le dézipper et double-cliquer sur `index.html`. Les calculs marchent sans Internet ; la carte du ciel et la recherche d'objets ont besoin d'une connexion.
 

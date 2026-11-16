@@ -24,6 +24,7 @@ a { color: var(--accent); }
   padding: 12px 20px; border-bottom: 1px solid var(--line);
 }
 .brand { color: var(--text); font-weight: 700; font-size: 1.1rem; text-decoration: none; }
+.brand-sub { color: var(--accent); font-weight: 600; }
 .tagline { color: var(--muted); font-size: 0.9rem; }
 .source { margin-left: auto; font-size: 0.9rem; }
 

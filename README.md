@@ -1,10 +1,10 @@
-# Muon — astrophotography framing simulator
+# Muon Deep Sky (Ciel profond) — astrophotography framing simulator
 
 *English · [Français](README.fr.md)*
 
-**[▶ Open the app](https://nktrois.github.io/muon/)**, nothing to install.
+**[▶ Open the app](https://nktrois.github.io/muon-ciel-profond/)**, nothing to install.
 
-**Muon** (named after the particle that rains down from cosmic rays) shows the **field actually covered by your camera sensor** on an interactive sky atlas. No install, no server, no account: it runs in any recent browser on Windows, macOS and Linux. The interface is in French.
+**Muon Ciel profond** (deep-sky counterpart to Muon, named after the particle that rains down from cosmic rays) shows the **field actually covered by your camera sensor** on an interactive sky atlas. No install, no server, no account: it runs in any recent browser on Windows, macOS and Linux. The interface is in French.
 
 ![Muon showing a 2×2 mosaic on M31](docs/screenshot.jpg)
 
@@ -23,7 +23,7 @@
 
 ## Run it
 
-**Online:** [https://nktrois.github.io/muon/](https://nktrois.github.io/muon/), works on computer and phone.
+**Online:** [https://nktrois.github.io/muon-ciel-profond/](https://nktrois.github.io/muon-ciel-profond/), works on computer and phone.
 
 **Offline copy:** download the repository (*Code → Download ZIP*), unzip it and double-click `index.html`. The calculations work without Internet; the sky map and object search need a connection.
 
